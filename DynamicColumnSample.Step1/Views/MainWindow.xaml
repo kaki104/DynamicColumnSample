@@ -1,0 +1,39 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DynamicColumnSample.Step1"
+        xmlns:behaviors="clr-namespace:DynamicColumnSample.Step1.Behaviors"
+        xmlns:viewModels="clr-namespace:DynamicColumnSample.Step1.ViewModels"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Custom="http://www.codeplex.com/prism"
+        xmlns:extensions="clr-namespace:DynamicColumnSample.Step1.Extensions"
+        x:Class="DynamicColumnSample.Step1.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False">
+            <i:Interaction.Behaviors>
+                <behaviors:DataGridBehavior ItemsSource="{extensions:BindingEx Path=SampleRows, PathFormatString=helloWorld}" />
+            </i:Interaction.Behaviors>
+        </DataGrid>
+    </Grid>
+</Window>
